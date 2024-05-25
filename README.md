@@ -4,6 +4,8 @@ This is modified and more lightweight version of original application to practic
 
 The original repo is here: https://github.com/akveo/ngx-admin
 
+# Framework Architecture
+![img_1.png](img_1.png)
 # how to record the test
 ```shell
 npx playwright codegen
