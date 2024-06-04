@@ -12,7 +12,13 @@ npx playwright codegen
 ```
 # how to start an e2e automation testing 
 ## 1. playwright command
+```shell
+cd cd pw-practice-app
+npm start
+npx playwright test --ui                     //in UI mode
+npm run pageObejcts-chrome                   //in chrome web browser
 
+```
 ## 2. an easy model of test.spec.ts
 ```ts
 import {test} from '@playwright/test'
@@ -101,3 +107,88 @@ how to locate parent locators
 ```ts
 
 ```
+#  advanced
+## 1.install data generator -- faker
+Reference: https://www.npmjs.com/package/@faker-js/faker
+```shell
+npm install @faker-js/faker --save-dev --force
+
+import {faker} from '@faker-js/faker'
+test('parameterize methods', async ({page})=>{
+  const pm = new PageManeger(page)
+  const randomFullName = faker.person.fullName()
+  const randomEmail = `${randomFullName.replace(' ','')}${faker.number.int(1000)}@tester.com`
+  await pm.naviagteTo().formLayoutPage()
+  await pm.onFormLayouts().submitInlineFrom(randomFullName,randomEmail,true)
+
+})
+```
+
+## retry when test are failed
+Reference: https://playwright.dev/docs/test-retries
+### 1. config in playwright.config.ts
+```shell
+//fail then retry 1 time
+retries: process.env.CI ? 2 : 1
+```
+### 2. add in the test file [uiComponents.spec.ts]
+```ts
+test.describe.only('form layouts page', () =>{
+  test.describe.configure({retries:2})
+  test.beforeEach(async ({page}) =>{
+    await page.getByText('Forms').click()
+    await page.getByText('Form Layouts').click()
+  })
+
+  test('input field', async({page},testInfo) =>{
+    if(testInfo.retry){
+      console.log("the second time to exacute")
+    }
+    test.setTimeout(10000);
+    const inputField = await page.locator('nb-card',{hasText : 'Using the Grid'}).getByPlaceholder('Email')
+    await inputField.fill('boss@com.cn')
+    await expect(inputField).toHaveValue('boss@com1.cn')
+  })
+
+  test('radio button', async({page}) =>{
+    const option1 = await page.locator('nb-card',{hasText : 'Using the Grid'}).getByRole('radio',{name:'Option 1'})
+    await option1.check({force:true})
+    await expect(option1.isChecked()).toBeTruthy()
+  })
+```
+
+### 3. parallel the test
+Reference: https://playwright.dev/docs/test-parallel
+
+### 4. screenshot and videos
+screenshot Reference: https://playwright.dev/docs/screenshots
+add in the test file
+```ts
+await page.screenshot({path: 'screenshot/formLayoutPage.png'})
+//screenshot part of the page
+await page.locator('nb-card',{hasText : 'Inline form'}).screenshot({path: 'screenshot/inlineFormPage.png'})
+//save the binary data of screenshot
+const buffer = page.screenshot()
+console.log(buffer)
+```
+video Reference: https://playwright.dev/docs/videos
+
+### 5. envoriment parameter manager
+```shell
+npm i dotenv --save-dev --force
+```
+create a file: .env
+quote the parameter in the test file
+```ts
+await pm.onFormLayouts().submitUsingTheGridFrom(process.env.Email,process.env.Password,'Option 1')
+```
+
+### 6.test configuration and test use options
+test configuration reference: https://playwright.dev/docs/test-configuration
+test use options reference: https://playwright.dev/docs/test-use-options
+
+### 7.fixture
+reference: https://playwright.dev/docs/test-fixtures
+
+
+

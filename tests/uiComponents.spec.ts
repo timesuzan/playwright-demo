@@ -1,16 +1,20 @@
 import {test,expect} from '@playwright/test'
 
 test.beforeEach(async ({page}) =>{
-  await page.goto('http://localhost:4200/')
+  await page.goto('/')
 })
 
 test.describe('form layouts page', () =>{
+  test.describe.configure({retries:2})
   test.beforeEach(async ({page}) =>{
     await page.getByText('Forms').click()
     await page.getByText('Form Layouts').click()
   })
 
-  test('input field', async({page}) =>{
+  test('input field', async({page},testInfo) =>{
+    if(testInfo.retry){
+      console.log("the second time to exacute")
+    }
     test.setTimeout(10000);
     const inputField = await page.locator('nb-card',{hasText : 'Using the Grid'}).getByPlaceholder('Email')
     await inputField.fill('boss@com.cn')
