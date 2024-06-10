@@ -213,6 +213,17 @@ https://allurereport.org/docs/playwright-configuration/
 ### 11. using the screenshot to visual test
 ![img_3.png](img_3.png)
 
+### 12. execute playwright test in docker
+tutorial:
+https://playwright.dev/docs/codegen
+https://testgrid.io/blog/playwright-testing-with-docker/
+
+### 13. execute playwright test in github action and argos ci
+the most github CLI: https://www.bondaracademy.com/blog/most-poular-git-commands-for-testers
+CI GitHub Actions tutorial: https://playwright.dev/docs/ci-intro
+argos ci with playwright: https://argos-ci.com/docs/quickstart/playwright
+
+
 
 
 
