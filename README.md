@@ -190,5 +190,29 @@ test use options reference: https://playwright.dev/docs/test-use-options
 ### 7.fixture
 reference: https://playwright.dev/docs/test-fixtures
 
+### 8.use tag to run specific test
+reference: https://playwright.dev/docs/test-annotations
+
+### 9.mobile device emulator
+emulate devices or viewpoint
+```shell
+npx playwright codegen --device="iPhone 13 Pro" http://localhost:4200/
+npx playwright codegen --viewport-size=800,600 playwright.dev
+```
+run mobile emulator test
+```shell
+npm run pageObejcts-mobile
+```
+
+### 10.reporter
+![img_2.png](img_2.png)
+also we can generate visual test result reporter with allure reporter
+https://allurereport.org/docs/install-for-macos/
+https://allurereport.org/docs/playwright-configuration/
+
+### 11. using the screenshot to visual test
+![img_3.png](img_3.png)
+
+
 
 

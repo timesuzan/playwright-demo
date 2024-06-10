@@ -21,10 +21,12 @@ test.describe('form layouts page', () =>{
     await expect(inputField).toHaveValue('boss@com.cn')
   })
 
-  test('radio button', async({page}) =>{
-    const option1 = await page.locator('nb-card',{hasText : 'Using the Grid'}).getByRole('radio',{name:'Option 1'})
+  test.only('radio button', async({page}) =>{
+    const usingTheGridForm = await page.locator('nb-card',{hasText : 'Using the Grid'})
+    const option1 = await usingTheGridForm.getByRole('radio',{name:'Option 1'})
     await option1.check({force:true})
-    await expect(option1.isChecked()).toBeTruthy()
+    // await expect(option1.isChecked()).toBeTruthy()
+    await expect(usingTheGridForm).toHaveScreenshot({maxDiffPixels:250})
   })
 
 

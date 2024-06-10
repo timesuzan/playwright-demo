@@ -11,7 +11,8 @@
     "start": "ng serve",
     "pageObejcts-chrome": "npx playwright test --project=chromium",
     "pageObejcts-firefox": "npx playwright test --project=firefox",
-    "pageObejcts-all": "npm run pageObejcts-chrome && npm run pageObejcts-firefox"
+    "pageObejcts-all": "npm run pageObejcts-chrome && npm run pageObejcts-firefox",
+    "pageObejcts-mobile": "npx playwright test mobileInput.spec.ts --project=mobile"
   },
   "dependencies": {
     "@angular/animations": "^14.2.12",
